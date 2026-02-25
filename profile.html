@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexGen Tech | professional IT solutions</title>
+  <!-- Google Fonts for clean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: #1e293b;        /* dark slate */
+      background-color: #ffffff;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ----- COLOR PALETTE (professional tech) ----- */
+    :root {
+      --primary: #0b2b4f;       /* deep navy */
+      --primary-light: #1e4a6f;
+      --accent: #2d7ee7;        /* vibrant blue */
+      --accent-soft: #e5f0ff;
+      --neutral-100: #f8fafc;
+      --neutral-200: #e9edf2;
+      --neutral-600: #5e6f88;
+      --neutral-800: #1e2b3a;
+      --white: #ffffff;
+      --shadow: 0 8px 20px rgba(0,0,0,0.04), 0 2px 6px rgba(0,20,40,0.06);
+    }
+
+    /* ----- TYPOGRAPHY & UTILITY ----- */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+    .section-subtitle {
+      color: var(--neutral-600);
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 0;
+    }
+
+    /* ---------- MOBILE FIRST STYLES (base) ---------- */
+    /* all flexbox properties are commented */
+
+    /* ----- NAVBAR (semantic <header> + <nav>) ----- */
+    .page-header {
+      background-color: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      /* flexbox: column layout on mobile */
+      display: flex;
+      flex-direction: column;      /* stack logo above nav */
+      align-items: center;         /* center horizontally */
+      gap: 0.75rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+    }
+    .logo span {
+      color: var(--accent);
+    }
+
+    /* navigation menu */
+    .nav-links {
+      list-style: none;
+      /* flexbox: row wrap, centered */
+      display: flex;
+      flex-wrap: wrap;             /* allow wrapping on small screens */
+      justify-content: center;     /* center items */
+      gap: 1.2rem 1.5rem;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      color: var(--neutral-800);
+      transition: color 0.2s;
+      font-size: 1rem;
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ----- HERO SECTION (with image) ----- */
+    .hero {
+      background-color: var(--neutral-100);
+    }
+
+    .hero-container {
+      display: flex;
+      flex-direction: column;      /* stack image & text on mobile */
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+    .hero-content h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--neutral-600);
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: white;
+      font-weight: 600;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      transition: background-color 0.2s, transform 0.1s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(45, 126, 231, 0.2);
+    }
+    .btn:hover {
+      background-color: var(--primary-light);
+    }
+
+    .hero-image img {
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* ----- SERVICES SECTION (cards) ----- */
+    .services {
+      background-color: var(--white);
+    }
+
+    .cards-grid {
+      display: flex;
+      flex-direction: column;      /* stacked cards on mobile */
+      gap: 1.8rem;
+    }
+
+    .service-card {
+      background-color: var(--neutral-100);
+      padding: 2rem 1.5rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+      /* inner flex for optional icon alignment */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .service-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .service-card p {
+      color: var(--neutral-600);
+    }
+
+    /* ----- OUR WORK / PROJECTS ----- */
+    .work {
+      background-color: var(--neutral-100);
+    }
+
+    .projects-grid {
+      display: flex;
+      flex-direction: column;      /* column on mobile */
+      gap: 2rem;
+    }
+
+    .project-item {
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      /* flex column for image on top */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0;
+    }
+
+    .project-info {
+      padding: 1.5rem;
+    }
+    .project-info h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .project-info p {
+      color: var(--neutral-600);
+      margin-bottom: 1rem;
+    }
+    .project-tag {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ----- ABOUT US (with image) ----- */
+    .about {
+      background-color: var(--white);
+    }
+
+    .about-container {
+      display: flex;
+      flex-direction: column;      /* stack on mobile */
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .about-image img {
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .about-content h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .about-content p {
+      color: var(--neutral-600);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ----- CONTACT FORM ----- */
+    .contact {
+      background-color: var(--neutral-100);
+    }
+
+    .contact-form {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      max-width: 700px;
+      margin: 0 auto;
+      /* flex column for form fields */
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .form-group input,
+    .form-group textarea {
+      font-family: inherit;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--neutral-200);
+      border-radius: 16px;
+      font-size: 1rem;
+      transition: 0.2s;
+      background-color: var(--neutral-100);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(45,126,231,0.15);
+    }
+
+    .contact-form .btn {
+      align-self: flex-start;   /* button not full width */
+      border: none;
+      font-size: 1rem;
+    }
+
+    /* ----- MODERN FOOTER (with links) ----- */
+    .footer {
+      background-color: var(--primary);
+      color: var(--neutral-200);
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      /* flex column on mobile */
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .footer-columns {
+      /* flex row wrap for columns */
+      display: flex;
+      flex-direction: column;     /* stacked on mobile */
+      gap: 2rem;
+    }
+
+    .footer-col {
+      /* each column takes full width on mobile */
+      flex: 1 1 100%;
+    }
+
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-col a {
+      color: #b0c6da;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: white;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid #1e4a6f;
+      font-size: 0.9rem;
+      color: #9bb5d4;
+    }
+
+    /* ---------- MEDIA QUERIES (larger screens) ---------- */
+    /* tablet (min-width: 640px) */
+    @media screen and (min-width: 640px) {
+      .cards-grid {
+        flex-direction: row;          /* side by side cards */
+        flex-wrap: wrap;
+        gap: 2%;
+      }
+      .service-card {
+        flex: 1 1 48%;                /* two columns */
+      }
+
+      .projects-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 2%;
+      }
+      .project-item {
+        flex: 1 1 48%;
+      }
+
+      .footer-columns {
+        flex-direction: row;          /* columns in a row */
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+      .footer-col {
+        flex: 1 1 30%;                /* three columns approx */
+      }
+    }
+
+    /* desktop (min-width: 900px) */
+    @media screen and (min-width: 900px) {
+      /* header row layout */
+      .header-container {
+        flex-direction: row;          /* logo left, nav right */
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .hero-container {
+        flex-direction: row;          /* text left, image right */
+        justify-content: space-between;
+        text-align: left;
+      }
+      .hero-content {
+        text-align: left;
+        flex: 1 1 45%;
+      }
+      .hero-image {
+        flex: 1 1 50%;
+      }
+
+      .cards-grid {
+        gap: 1.5rem;
+      }
+      .service-card {
+        flex: 1 1 30%;                /* three cards per row */
+      }
+
+      .projects-grid {
+        gap: 1.5rem;
+      }
+      .project-item {
+        flex: 1 1 30%;                /* three projects */
+      }
+
+      .about-container {
+        flex-direction: row;           /* image left, content right */
+        align-items: center;
+        gap: 4rem;
+      }
+      .about-image {
+        flex: 1 1 45%;
+      }
+      .about-content {
+        flex: 1 1 50%;
+      }
+
+      .footer-columns {
+        gap: 1rem;
+      }
+      .footer-col {
+        flex: 1 1 22%;                /* four even columns */
+      }
+    }
+
+    /* small desktop adjustment */
+    @media screen and (min-width: 1200px) {
+      .service-card {
+        flex: 1 1 22%;                /* four cards if desired, but keep 3 */
+      }
+      .project-item {
+        flex: 1 1 22%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SEMANTIC HEADER WITH NAVBAR -->
+  <header class="page-header">
+    <div class="header-container">
+      <!-- flex container (commented in CSS) -->
+      <div class="logo">Nex<span>Gen</span></div>
+      <nav>
+        <ul class="nav-links">
+          <!-- flex container (row wrap) -->
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION (with image) -->
+    <section id="home" class="hero">
+      <div class="container hero-container">
+        <!-- flex container: column mobile, row desktop -->
+        <div class="hero-content">
+          <h1>Innovative software, built for scale</h1>
+          <p>We turn complex ideas into powerful digital solutions. Trusted by startups and enterprises worldwide.</p>
+          <a href="#contact" class="btn">Let's talk</a>
+        </div>
+        <div class="hero-image">
+          <img src="https://picsum.photos/id/2/600/400" alt="Team working on tech" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="services">
+      <div class="container">
+        <h2 class="section-title">Expertise that delivers</h2>
+        <p class="section-subtitle">We combine creativity and engineering to build future-ready products.</p>
+        <!-- flex container: cards grid -->
+        <div class="cards-grid">
+          <!-- flex item: card 1 -->
+          <article class="service-card">
+            <div class="card-icon">⚙️</div>
+            <h3>Cloud & DevOps</h3>
+            <p>Scalable infrastructure, CI/CD, and 24/7 monitoring tailored to your stack.</p>
+          </article>
+          <article class="service-card">
+            <div class="card-icon">📱</div>
+            <h3>Mobile first</h3>
+            <p>Native and cross‑platform apps with pixel‑perfect UI and seamless UX.</p>
+          </article>
+          <article class="service-card">
+            <div class="card-icon">🧠</div>
+            <h3>AI & analytics</h3>
+            <p>Turn data into decisions with custom machine learning models and dashboards.</p>
+          </article>
+          <article class="service-card">
+            <div class="card-icon">🔒</div>
+            <h3>Cybersecurity</h3>
+            <p>Security audits, threat monitoring, and compliance for peace of mind.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR WORK / PROJECTS -->
+    <section id="work" class="work">
+      <div class="container">
+        <h2 class="section-title">Recent projects</h2>
+        <p class="section-subtitle">Real solutions that made a difference.</p>
+        <!-- flex container: projects grid -->
+        <div class="projects-grid">
+          <article class="project-item">
+            <img src="https://picsum.photos/id/20/400/250" alt="FinTech dashboard" loading="lazy">
+            <div class="project-info">
+              <span class="project-tag">FinTech</span>
+              <h3>NeoBank mobile app</h3>
+              <p>Digital banking for 2M+ users with real‑time analytics and biometric security.</p>
+            </div>
+          </article>
+          <article class="project-item">
+            <img src="https://picsum.photos/id/26/400/250" alt="Healthcare platform" loading="lazy">
+            <div class="project-info">
+              <span class="project-tag">HealthTech</span>
+              <h3>MediFlow telemedicine</h3>
+              <p>HIPAA‑compliant platform connecting patients with doctors via video & chat.</p>
+            </div>
+          </article>
+          <article class="project-item">
+            <img src="https://picsum.photos/id/30/400/250" alt="E‑commerce" loading="lazy">
+            <div class="project-info">
+              <span class="project-tag">Retail</span>
+              <h3>OmniStore AI</h3>
+              <p>Personalized shopping assistant with inventory prediction and AR try‑on.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US (with image) -->
+    <section id="about" class="about">
+      <div class="container about-container">
+        <!-- flex container: stacked mobile, row desktop -->
+        <div class="about-image">
+          <img src="https://picsum.photos/id/24/600/400" alt="NexGen team brainstorming" loading="lazy">
+        </div>
+        <div class="about-content">
+          <h2>Where innovation meets dedication</h2>
+          <p>Founded in 2018, NexGen is a team of 50+ engineers, designers and strategists. We believe in clean code, honest communication, and long‑term partnerships.</p>
+          <p>We’ve helped companies from early‑stage startups to Fortune 500s launch products that users love. Our approach combines agile development with enterprise‑grade security.</p>
+          <p>📍 Offices in San Francisco, Berlin and Singapore.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title">Let’s build something great</h2>
+        <p class="section-subtitle">Tell us about your project – we’ll get back to you within 24h.</p>
+        <form class="contact-form" action="#" method="post">
+          <!-- flex container column -->
+          <div class="form-group">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="Alex Johnson" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="alex@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us about your idea..."></textarea>
+          </div>
+          <button type="submit" class="btn">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODERN FOOTER with links -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- flex container (column on mobile, row on larger) -->
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>NexGen</h4>
+          <ul>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#press">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Cloud & DevOps</a></li>
+            <li><a href="#">Mobile development</a></li>
+            <li><a href="#">AI & analytics</a></li>
+            <li><a href="#">Cybersecurity</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="#">FinTech</a></li>
+            <li><a href="#">HealthTech</a></li>
+            <li><a href="#">Retail & e‑commerce</a></li>
+            <li><a href="#">Logistics</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">hello@nexgen.tech</a></li>
+            <li><a href="#">+1 (415) 555‑0123</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">X (Twitter)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 NexGen Technologies. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <!-- no JavaScript used – pure semantic HTML + CSS Flexbox -->
+</body>
+</html>

@@ -3,442 +3,678 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>semantic layout · header, nav, main, section, article, aside, footer</title>
-  <!-- Google Font & icon library for clean modern style -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>YouTube Clone (HTML & CSS only)</title>
+  <!-- Font Awesome 6 (free) for icons – keeps the design crisp and similar to YouTube's iconography -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* ---------- modern reset / base ---------- */
+    /* ----- RESET / BASE ----- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #f4f8fd;
-      color: #152b42;
-      line-height: 1.5;
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+
+    /* ----- HEADER (YouTube style) ----- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 56px;
+      background-color: #0f0f0f;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 100;
+      border-bottom: 1px solid #3f3f3f;
+    }
+
+    /* left section: menu + logo */
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-icon {
+      font-size: 20px;
+      color: white;
+      cursor: default; /* non-interactive for static clone */
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .logo i {
+      color: #ff0000;
+      font-size: 26px;
+    }
+
+    .logo span {
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      color: white;
+    }
+
+    .logo .country {
+      font-size: 10px;
+      color: #aaa;
+      font-weight: 400;
+      margin-left: 2px;
+      align-self: flex-start;
+    }
+
+    /* middle: search bar + mic */
+    .header-middle {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 0 1 720px; /* mimics YouTube's search bar width */
+      justify-content: flex-end;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      height: 40px;
+      border: 1px solid #3f3f3f;
+      border-radius: 40px;
+      background-color: #121212;
+      overflow: hidden;
+    }
+
+    .search-bar input {
+      flex: 1;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0 16px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .search-bar input::placeholder {
+      color: #888;
+      font-size: 14px;
+    }
+
+    .search-btn {
+      width: 64px;
+      height: 40px;
+      background-color: #222222;
+      border: 1px solid #3f3f3f;
+      border-left: none;
+      border-radius: 0 40px 40px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      cursor: default;
+    }
+
+    .mic-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #181818;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      cursor: default;
+    }
+
+    /* right: icons + avatar */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-right: 8px;
+    }
+
+    .header-right i {
+      color: white;
+      font-size: 20px;
+      cursor: default;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      background-color: #3b9eff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+      color: #0f0f0f;
+      cursor: default;
+    }
+
+    /* ----- MAIN LAYOUT (sidebar + content) ----- */
+    .main-layout {
+      display: flex;
+      margin-top: 56px; /* header height */
+      min-height: calc(100vh - 56px);
+    }
+
+    /* ----- SIDEBAR (similar to YouTube compact) ----- */
+    .sidebar {
+      width: 240px;
+      background-color: #0f0f0f;
+      padding: 12px 0 0 12px;
+      overflow-y: auto;
+      height: calc(100vh - 56px);
+      position: sticky;
+      top: 56px;
+      left: 0;
+      scrollbar-width: thin;
+      scrollbar-color: #717171 #0f0f0f;
+    }
+
+    .sidebar-section {
+      padding-bottom: 12px;
+      border-bottom: 1px solid #3f3f3f;
+      margin-bottom: 12px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
+      cursor: default;
+    }
+
+    .sidebar-item i {
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-item.active {
+      background-color: #3f3f3f;
+      font-weight: 500;
+    }
+
+    .sidebar-item:hover {
+      background-color: #272727;
+    }
+
+    .sidebar-footer {
+      padding: 16px 12px;
+      color: #717171;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .sidebar-footer p {
+      margin-bottom: 8px;
+    }
+
+    .guide-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .guide-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .copyright {
+      color: #717171;
+      font-size: 12px;
+    }
+
+    /* ----- MAIN CONTENT (video grid) ----- */
+    .content {
+      flex: 1;
+      background-color: #0f0f0f;
+      padding: 24px 24px 24px 24px;
+    }
+
+    /* chip row (categories) */
+    .chip-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      background-color: #272727;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      border: 1px solid #3f3f3f;
+      cursor: default;
+      transition: 0.1s;
+    }
+
+    .chip.active {
+      background-color: #fff;
+      color: #0f0f0f;
+      border-color: #fff;
+    }
+
+    .chip:hover {
+      background-color: #3f3f3f;
+    }
+
+    /* video grid layout — similar to YouTube */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px 16px;
+    }
+
+    /* video card */
+    .video-card {
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      transition: 0.1s;
+      cursor: default;
     }
 
-    /* ---------- header ---------- */
-    header {
-      background: linear-gradient(135deg, #022b40, #0a4b6e);
-      color: white;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      border-bottom: 6px solid #48b5d0;
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      margin-top: 0.5rem;
-    }
-
-    /* ---------- nav ---------- */
-    nav {
-      background: #ffffffdd;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid #c3e1f0;
-      padding: 0.8rem 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.75rem 1.5rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 8px 20px rgba(0,35,60,0.08);
-    }
-
-    nav a {
-      color: #04364e;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 0.4rem 0.2rem;
-      border-bottom: 3px solid transparent;
-      transition: 0.15s;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    nav a i {
-      color: #0d70a0;
-    }
-
-    nav a:hover {
-      border-bottom-color: #1d9fc5;
-      color: #0a4b6e;
-    }
-
-    /* ---------- main (grid: 1fr 280px) ---------- */
-    main {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 2rem;
-      max-width: 1400px;
-      margin: 2.5rem auto;
-      padding: 0 2rem;
-      flex: 1;
-    }
-
-    /* ---------- section styling (container for articles) ---------- */
-    section {
-      background: transparent;
-      margin-bottom: 2rem;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #04364e;
-      border-left: 8px solid #1d9fc5;
-      padding-left: 1.2rem;
-      margin: 1.5rem 0 1.8rem 0;
-    }
-
-    /* article cards */
-    article {
-      background: white;
-      border-radius: 2rem;
-      padding: 1.8rem 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 18px 30px -12px rgba(2, 55, 85, 0.15);
-      border: 1px solid rgba(29, 159, 197, 0.2);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    article:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 28px 35px -12px #0a4b6e40;
-    }
-
-    article h2 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #04364e;
-    }
-
-    article h2 i {
-      color: #1d9fc5;
-      font-size: 2rem;
-      width: 2.2rem;
-    }
-
-    article h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin: 1.5rem 0 0.8rem 0;
-      color: #0f4b68;
-    }
-
-    /* code blocks */
-    pre {
-      background: #172f3c;
-      color: #d4edff;
-      padding: 1.2rem 1.5rem;
-      border-radius: 1.5rem;
-      overflow-x: auto;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.9rem;
-      border-left: 6px solid #48b5d0;
-      margin: 1.2rem 0;
-    }
-
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      background: #e2f0f9;
-      color: #04364e;
-      padding: 0.2rem 0.5rem;
+    .thumbnail {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: #333;
       border-radius: 12px;
-      font-size: 0.9rem;
+      overflow: hidden;
+      margin-bottom: 12px;
     }
 
-    pre code {
-      background: transparent;
-      color: inherit;
-      padding: 0;
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    /* example boxes */
-    .demo-box {
-      background: #ecf9ff;
-      border-radius: 1.8rem;
-      padding: 1.5rem;
-      margin: 1.5rem 0 0.5rem;
-      border: 1px solid #a7d4f0;
-    }
-
-    .demo-flex {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .badge {
-      background: #0a4b6e;
+    .duration {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background-color: rgba(0, 0, 0, 0.85);
       color: white;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    /* image placeholder */
-    .card-img {
-      background: linear-gradient(145deg, #c7e2f5, #9bc9eb);
-      border-radius: 1.5rem;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #04364e;
-      font-weight: 600;
-      margin: 1rem 0;
-    }
-
-    /* aside */
-    aside {
-      background: white;
-      border-radius: 2rem;
-      padding: 1.8rem 1.5rem;
-      box-shadow: 0 20px 30px -10px #04364e1a;
-      border: 1px solid #c2def0;
-      height: fit-content;
-      position: sticky;
-      top: 90px;
-    }
-
-    aside h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #04364e;
-      border-bottom: 4px solid #1d9fc5;
-      padding-bottom: 0.6rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    aside ul {
-      list-style: none;
-    }
-
-    aside li {
-      margin: 1.2rem 0;
-    }
-
-    aside a {
-      text-decoration: none;
-      color: #04364e;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 12px;
       font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    /* video metadata */
+    .video-info {
+      display: flex;
+      gap: 12px;
+    }
+
+    .channel-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #6b6b6b;
+      flex-shrink: 0;
+    }
+
+    .channel-avatar.one { background-color: #4caf50; }
+    .channel-avatar.two { background-color: #f44336; }
+    .channel-avatar.three { background-color: #3f51b5; }
+    .channel-avatar.four { background-color: #ff9800; }
+    .channel-avatar.five { background-color: #9c27b0; }
+    .channel-avatar.six { background-color: #00bcd4; }
+    .channel-avatar.seven { background-color: #e91e63; }
+    .channel-avatar.eight { background-color: #795548; }
+
+    .video-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 4px;
+      color: #fff;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .channel-name,
+    .video-stats {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    .channel-name {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 0.6rem 1rem;
-      border-radius: 50px;
-      transition: 0.15s;
+      gap: 4px;
     }
 
-    aside a i {
-      width: 1.8rem;
-      color: #1d9fc5;
-      font-size: 1.3rem;
+    .verified {
+      font-size: 12px;
+      color: #aaa;
     }
 
-    aside a:hover {
-      background: #def1fc;
-      color: #022b40;
+    /* just to make the clone rich */
+    .footer-spacer {
+      height: 40px;
     }
 
-    /* footer */
-    footer {
-      background: #022b40;
-      color: white;
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      margin-top: 3rem;
-      border-top-left-radius: 3rem;
-      border-top-right-radius: 3rem;
+    /* Scrollbar style (minor) */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-
-    footer p {
-      max-width: 700px;
-      margin: 0.5rem auto;
-      opacity: 0.85;
+    ::-webkit-scrollbar-track {
+      background: #0f0f0f;
     }
-
-    /* micro animation */
-    .pulse-dot {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      background: #48b5d0;
-      border-radius: 50%;
-      margin-right: 8px;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.2); background: #1d9fc5; }
-    }
-
-    /* responsive */
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: 1fr;
-      }
-      aside {
-        position: static;
-      }
+    ::-webkit-scrollbar-thumb {
+      background: #5f5f5f;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-
-  <!-- HEADER: site identity -->
-  <header>
-    <h1><i class="fa-regular fa-object-group" style="margin-right: 12px;"></i> semantic layout lab</h1>
-    <p>header · nav · main · section · article · aside · footer — each tag demonstrated</p>
-  </header>
-
-  <!-- NAV: primary navigation -->
-  <nav>
-    <a href="#section-articles"><i class="fa-regular fa-newspaper"></i> articles</a>
-    <a href="#section-demos"><i class="fa-regular fa-window-maximize"></i> interactive</a>
-    <a href="#section-cards"><i class="fa-regular fa-rectangle-ad"></i> cards</a>
-    <a href="#"><i class="fa-regular fa-bookmark"></i> another link</a>
-    <a href="#"><i class="fa-regular fa-comment"></i> dummy</a>
-  </nav>
-
-  <!-- MAIN: holds section + aside (grid) -->
-  <main>
-    <!-- left area: contains multiple sections, each containing articles -->
-    <div>
-      <!-- first SECTION (articles about semantic tags) -->
-      <section id="section-articles">
-        <h2 class="section-title"><i class="fa-regular fa-pen-to-square"></i> inside <code style="font-size:1.6rem;">&lt;section&gt;</code> – articles</h2>
-        
-        <article>
-          <h2><i class="fa-regular fa-file-lines"></i> article: header + article demo</h2>
-          <p>This box is an <code>&lt;article&gt;</code> element. It should be independently distributable or reusable (like a blog post). The title uses <code>&lt;h2&gt;</code> inside the article.</p>
-          <div class="demo-box">
-            <span class="badge">example</span>
-            <p><strong>sample content:</strong> article often contains its own header, paragraphs, images. Below a mini code block inside article.</p>
-            <pre><code>&lt;article&gt;
-  &lt;h2&gt;title&lt;/h2&gt;
-  &lt;p&gt;independent content&lt;/p&gt;
-&lt;/article&gt;</code></pre>
-          </div>
-          <p><i class="fa-regular fa-clock" style="color:#1d9fc5;"></i>  published by <strong>semantic demo</strong> — footer could go here but we keep moving.</p>
-        </article>
-
-        <article>
-          <h2><i class="fa-regular fa-image"></i> article with nested elements</h2>
-          <p><code>&lt;article&gt;</code> can contain <code>&lt;figure&gt;</code>, <code>&lt;blockquote&gt;</code>, etc. Here we show a card-like demo.</p>
-          <div class="demo-flex">
-            <span style="background: #0a4b6e; color: white; padding: 0.4rem 1.2rem; border-radius: 60px;">tag1</span>
-            <span style="background: #48b5d0; color: #022b40; padding: 0.4rem 1.2rem; border-radius: 60px;">tag2</span>
-          </div>
-          <div class="card-img">
-            <i class="fa-regular fa-image" style="font-size: 2rem; margin-right: 8px;"></i>  figure placeholder
-          </div>
-          <p>This article demonstrates layout flexibility.</p>
-        </article>
-      </section>
-
-      <!-- second SECTION: interactive demos -->
-      <section id="section-demos">
-        <h2 class="section-title"><i class="fa-regular fa-hand-peace"></i> <code>&lt;section&gt;</code> with interactive articles</h2>
-        
-        <article>
-          <h2><i class="fa-regular fa-palette"></i> article 1: color demo</h2>
-          <p>Using inline styles to show background and color inside an article.</p>
-          <div style="background: linear-gradient(145deg, #b3e0ff, #78c8f0); border-radius: 40px; padding: 1.5rem; color: #022b40;">
-            <p><i class="fa-regular fa-star" style="color: #022b40;"></i>  gradient background – placed inside article</p>
-          </div>
-          <pre><code>&lt;div style="background: linear-gradient(...)"&gt;...&lt;/div&gt;</code></pre>
-        </article>
-
-        <article>
-          <h2><i class="fa-regular fa-keyboard"></i> article 2: interactive button</h2>
-          <p>Hover effect using pseudo‑class (pure css).</p>
-          <div style="display:flex; gap: 1.2rem; flex-wrap: wrap;">
-            <button style="background:#04364e; border:none; color:white; padding:0.8rem 2rem; border-radius:60px; font-weight:600; cursor:pointer; transition:0.2s;"><i class="fa-regular fa-bell"></i> hover me</button>
-            <span class="pulse-dot"></span> pulsing dot (css animation)
-          </div>
-        </article>
-      </section>
-
-      <!-- third SECTION: card grid (articles as cards) -->
-      <section id="section-cards">
-        <h2 class="section-title"><i class="fa-regular fa-cards"></i> articles as cards</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
-          <article style="margin-bottom: 0;">
-            <h3 style="margin-top:0;"><i class="fa-regular fa-compass"></i> card one</h3>
-            <p>This is a independent article in a card layout. Each card is an <code>&lt;article&gt;</code>.</p>
-            <div style="background:#def1fc; border-radius:2rem; padding:0.8rem; margin-top:1rem;">🔹 inner block</div>
-          </article>
-          <article style="margin-bottom: 0;">
-            <h3 style="margin-top:0;"><i class="fa-regular fa-heart"></i> second card</h3>
-            <p>Article with simple illustration. Could be a product or summary.</p>
-            <div style="display: flex; gap: 5px;">⚡ ⚡ ⚡</div>
-          </article>
-          <article style="margin-bottom: 0;">
-            <h3 style="margin-top:0;"><i class="fa-regular fa-message"></i> third card</h3>
-            <p>Another article inside section — demonstrates reuse.</p>
-            <pre style="margin:0.5rem 0; padding:0.8rem;">&lt;article&gt;...&lt;/article&gt;</pre>
-          </article>
-        </div>
-      </section>
+  <!-- header -->
+  <header class="header">
+    <div class="header-left">
+      <i class="fas fa-bars menu-icon"></i>
+      <div class="logo">
+        <i class="fab fa-youtube"></i>
+        <span>YouTube</span>
+        <span class="country">IN</span>
+      </div>
     </div>
 
-    <!-- ASIDE: complementary content, sidebar -->
-    <aside>
-      <h3><i class="fa-regular fa-circle-info"></i> aside</h3>
-      <p style="margin-bottom: 1.5rem;">The <code>&lt;aside&gt;</code> tag holds tangential info — like this index, related links, or author bio.</p>
-      <ul>
-        <li><a href="#"><i class="fa-regular fa-arrow-right"></i> semantic tags overview</a></li>
-        <li><a href="#"><i class="fa-regular fa-arrow-right"></i> header / nav examples</a></li>
-        <li><a href="#"><i class="fa-regular fa-arrow-right"></i> main + section uses</a></li>
-        <li><a href="#"><i class="fa-regular fa-arrow-right"></i> article importance</a></li>
-        <li><a href="#"><i class="fa-regular fa-arrow-right"></i> aside & footer ideas</a></li>
-      </ul>
-      <div style="background: #e6f2fa; border-radius: 1.5rem; padding: 1.2rem; margin-top: 2rem;">
-        <p><i class="fa-regular fa-lightbulb"></i> <strong>note:</strong> each section groups related articles. aside is placed on the right (sticky).</p>
+    <div class="header-middle">
+      <div class="search-bar">
+        <input type="text" placeholder="Search">
+        <div class="search-btn"><i class="fas fa-search"></i></div>
+      </div>
+      <div class="mic-icon"><i class="fas fa-microphone"></i></div>
+    </div>
+
+    <div class="header-right">
+      <i class="fas fa-video"></i>
+      <i class="fas fa-bell"></i>
+      <div class="avatar">J</div>
+    </div>
+  </header>
+
+  <!-- main layout with sidebar + content -->
+  <div class="main-layout">
+    <!-- sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-item active">
+          <i class="fas fa-home"></i>
+          <span>Home</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-compass"></i>
+          <span>Explore</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-film"></i>
+          <span>Shorts</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-circle-play"></i>
+          <span>Subscriptions</span>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-item">
+          <i class="fas fa-book-open"></i>
+          <span>Library</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-clock-rotate-left"></i>
+          <span>History</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-clock"></i>
+          <span>Watch later</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-thumbs-up"></i>
+          <span>Liked videos</span>
+        </div>
+      </div>
+      <!-- subscriptions etc (minimal) -->
+      <div class="sidebar-section">
+        <div class="sidebar-item">
+          <i class="fas fa-fire"></i>
+          <span>Trending</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-music"></i>
+          <span>Music</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-gamepad"></i>
+          <span>Gaming</span>
+        </div>
+        <div class="sidebar-item">
+          <i class="fas fa-newspaper"></i>
+          <span>News</span>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="guide-links">
+          <a href="#">About</a> <a href="#">Press</a> <a href="#">Copyright</a>
+          <a href="#">Contact us</a> <a href="#">Creators</a> <a href="#">Advertise</a>
+          <a href="#">Developers</a>
+        </div>
+        <div class="guide-links">
+          <a href="#">Terms</a> <a href="#">Privacy</a> <a href="#">Policy & Safety</a>
+          <a href="#">How YouTube works</a> <a href="#">Test new features</a>
+        </div>
+        <p class="copyright">© 2025 Google LLC</p>
       </div>
     </aside>
-  </main>
 
-  <!-- FOOTER: global site footer -->
-  <footer>
-    <p><i class="fa-regular fa-copyright"></i> 2026 · semantic layout workshop</p>
-    <p>built with <code style="background:#0a4b6e; color:white;">&lt;header&gt;</code> <code style="background:#0a4b6e; color:white;">&lt;nav&gt;</code> <code style="background:#0a4b6e; color:white;">&lt;main&gt;</code> <code style="background:#0a4b6e; color:white;">&lt;section&gt;</code> <code style="background:#0a4b6e; color:white;">&lt;article&gt;</code> <code style="background:#0a4b6e; color:white;">&lt;aside&gt;</code> <code style="background:#0a4b6e; color:white;">&lt;footer&gt;</code></p>
-    <p style="font-size:0.9rem;">each tag is clearly used to structure the page — inspect to see the hierarchy.</p>
-  </footer>
+    <!-- main content: chips + video grid -->
+    <main class="content">
+      <div class="chip-row">
+        <span class="chip active">All</span>
+        <span class="chip">Music</span>
+        <span class="chip">Gaming</span>
+        <span class="chip">Live</span>
+        <span class="chip">News</span>
+        <span class="chip">Sports</span>
+        <span class="chip">Cooking</span>
+        <span class="chip">Podcasts</span>
+        <span class="chip">Comedy</span>
+        <span class="chip">AI</span>
+      </div>
 
+      <!-- video grid (9 cards) -->
+      <div class="video-grid">
+        <!-- card 1 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=1" alt="thumbnail" loading="lazy">
+            <span class="duration">14:22</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar one"></div>
+            <div class="video-details">
+              <div class="video-title">Creating a YouTube clone with pure CSS · flexbox & grid</div>
+              <div class="channel-name">CodeMaster <i class="fas fa-check-circle verified"></i></div>
+              <div class="video-stats">234K views · 2 days ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 2 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=2" alt="thumbnail" loading="lazy">
+            <span class="duration">8:16</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar two"></div>
+            <div class="video-details">
+              <div class="video-title">Top 10 VS Code extensions for web developers 2025</div>
+              <div class="channel-name">DevToolbox</div>
+              <div class="video-stats">567K views · 1 week ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 3 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=3" alt="thumbnail" loading="lazy">
+            <span class="duration">21:09</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar three"></div>
+            <div class="video-details">
+              <div class="video-title">HTML & CSS only – no JavaScript? that's fine!</div>
+              <div class="channel-name">Frontend Simplified</div>
+              <div class="video-stats">1.2M views · 4 months ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 4 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=4" alt="thumbnail" loading="lazy">
+            <span class="duration">11:42</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar four"></div>
+            <div class="video-details">
+              <div class="video-title">Learn CSS Grid in 20 minutes (responsive layout)</div>
+              <div class="channel-name">CodingTube <i class="fas fa-check-circle verified"></i></div>
+              <div class="video-stats">890K views · 2 weeks ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 5 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=5" alt="thumbnail" loading="lazy">
+            <span class="duration">5:54</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar five"></div>
+            <div class="video-details">
+              <div class="video-title">I cloned YouTube with only HTML & CSS | challenge</div>
+              <div class="channel-name">DesignHack</div>
+              <div class="video-stats">123K views · 6 hours ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 6 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=6" alt="thumbnail" loading="lazy">
+            <span class="duration">32:15</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar six"></div>
+            <div class="video-details">
+              <div class="video-title">Dark mode UI like YouTube – tips & tricks</div>
+              <div class="channel-name">UX Masterclass</div>
+              <div class="video-stats">341K views · 1 month ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 7 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=7" alt="thumbnail" loading="lazy">
+            <span class="duration">18:30</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar seven"></div>
+            <div class="video-details">
+              <div class="video-title">Responsive video grid with auto-fit and minmax</div>
+              <div class="channel-name">WebDev University</div>
+              <div class="video-stats">76K views · 3 days ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 8 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=8" alt="thumbnail" loading="lazy">
+            <span class="duration">9:11</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar eight"></div>
+            <div class="video-details">
+              <div class="video-title">Tailwind vs vanilla CSS – which one wins?</div>
+              <div class="channel-name">DevBattle</div>
+              <div class="video-stats">1.8M views · 2 years ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- card 9 -->
+        <div class="video-card">
+          <div class="thumbnail">
+            <img src="https://picsum.photos/320/180?random=9" alt="thumbnail" loading="lazy">
+            <span class="duration">12:07</span>
+          </div>
+          <div class="video-info">
+            <div class="channel-avatar one"></div> <!-- reuse avatar style -->
+            <div class="video-details">
+              <div class="video-title">How I built a YouTube mockup in 30 minutes</div>
+              <div class="channel-name">QuickCoder</div>
+              <div class="video-stats">45K views · 8 hours ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-spacer"></div>
+    </main>
+  </div>
+  <!-- no scripts, only html + css -->
 </body>
 </html>

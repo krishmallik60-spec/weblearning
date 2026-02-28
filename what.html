@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp UI</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body{
+    background:#EEE;
+}
+
+/* ===== TOP LOGO BAR ===== */
+
+.logo-bar{
+    height:40px;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+    color:rgb(23, 22, 22);
+    font-size:20px;
+    font-weight:600;
+    gap:10px;
+}
+
+.logo-bar img{
+    width:32px;
+}
+
+/* ===== MAIN LAYOUT ===== */
+
+.container{
+    display:flex;
+    height:calc(100vh - 40px);
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+    width:70px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:15px 0;
+}
+
+.sidebar ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:25px;
+}
+
+.sidebar a{
+    color:#6f6f6f;
+    font-size:20px;
+    transition:0.2s;
+}
+
+.sidebar a:hover{
+    color:#363636;
+    transform:scale(1.1);
+}
+
+/* ===== CHAT LIST ===== */
+
+.chat-list{
+    width:450px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    border-right:1px solid #ddd;
+    border-radius: 30px 0 0 0;
+    height:100%;
+    box-shadow:4px 0 10px rgba(0,0,0,0.05);
+}
+
+.chat-list .header{
+    padding:18px;
+    font-weight:600;
+    font-size:18px;
+}
+
+.search{
+    padding:10px 15px;
+}
+
+.search input{
+    width:100%;
+    padding:15px 20px;
+    border-radius:20px;
+    border:none;
+    background:#f0f2f5;
+    outline:none;
+}
+
+.chat-items{
+    flex:1;
+    overflow-y:auto;
+    padding:10px;
+}
+
+/* ===== CHAT ITEM ===== */
+
+.chat-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    text-decoration:none;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:6px;
+    color:#111;
+    transition:0.2s;
+}
+
+.chat-item:hover{
+    background:#f5f6f6;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.details{
+    display:flex;
+    flex-direction:column;
+}
+
+.name{
+    font-weight:600;
+    font-size:14px;
+}
+
+.message{
+    font-size:13px;
+    color:#667781;
+}
+
+.time{
+    font-size:12px;
+    color:#667781;
+}
+
+/* ===== CHAT WINDOW ===== */
+
+.chat-window{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    background:#fdf7e3;
+    position:relative;
+}
+
+/* HEADER WITH AVATAR */
+
+.chat-window .header{
+    padding:12px 20px;
+    height:70px;
+    background:#ffffff;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.chat-window .header img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+}
+
+/* MESSAGES */
+
+.messages{
+    flex:1;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    overflow-y:auto;
+    margin-bottom: 100px;
+}
+
+.message-rec,
+.message-send{
+    max-width:60%;
+    padding:10px 14px;
+    border-radius:10px;
+    font-size:14px;
+}
+
+.message-rec{
+    background:#fff;
+    align-self:flex-start;
+}
+
+.message-send{
+    background:#d9fdd3;
+    align-self:flex-end;
+}
+
+/* FLOATING INPUT AREA */
+
+.input-area{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    right:20px;
+    padding:10px;
+    display:flex;
+    gap:10px;
+    background:transparent; /* removed background */
+}
+
+.input-area input{
+    flex:1;
+    padding:18px 16px;
+    border-radius:25px;
+    border:none;
+    outline:none;
+    font-size: 19px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+/* Responsive */
+
+@media(max-width:700px){
+    .sidebar{
+        display:none;
+    }
+    .chat-list{
+        width:100%;
+    }
+    .chat-window{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo-bar">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    WhatsApp
+</div>
+
+<div class="container">
+
+<div class="sidebar">
+    <ul>
+        <li><a href="#"><i class="fa-solid fa-comment"></i></a></li>
+        <li><a href="#"><i class="fa-solid fa-phone"></i></a></li>
+        <li><a href="#"><i class="fa-solid fa-circle-notch"></i></a></li>
+    </ul>
+
+    <ul>
+        <li><a href="#"><i class="fa-solid fa-image"></i></a></li>
+        <li><a href="#"><i class="fa-solid fa-gear"></i></a></li>
+        <li>
+            <a href="#">
+                <img src="https://i.pravatar.cc/100"
+                     style="width:32px;height:32px;border-radius:50%;">
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- CHAT LIST WITH MANY DUMMY CHATS -->
+
+<div class="chat-list">
+    <div class="header">Chats</div>
+
+    <div class="search">
+        <input type="text" placeholder="Search or start new chat">
+    </div>
+
+    <div class="chat-items">
+        <!-- Dummy Chats -->
+        <!-- Repeat -->
+        <a href="#" class="chat-item">
+            <div class="left">
+                <div class="avatar"><img src="https://i.pravatar.cc/101"></div>
+                <div class="details">
+                    <p class="name">John Doe</p>
+                    <p class="message">Hey, how are you?</p>
+                </div>
+            </div>
+            <span class="time">10:30</span>
+        </a>
+
+        <!-- More Dummy -->
+        <a href="#" class="chat-item">
+            <div class="left">
+                <div class="avatar"><img src="https://i.pravatar.cc/102"></div>
+                <div class="details">
+                    <p class="name">Alex Smith</p>
+                    <p class="message">Meeting at 5?</p>
+                </div>
+            </div>
+            <span class="time">09:45</span>
+        </a>
+
+        <a href="#" class="chat-item">
+            <div class="left">
+                <div class="avatar"><img src="https://i.pravatar.cc/103"></div>
+                <div class="details">
+                    <p class="name">Emma Wilson</p>
+                    <p class="message">Sent the files 👍</p>
+                </div>
+            </div>
+            <span class="time">Yesterday</span>
+        </a>
+
+        <!-- Duplicate block multiple times to force scroll -->
+        <!-- You can copy paste above chat-item to create more -->
+        
+    </div>
+</div>
+
+<!-- CHAT WINDOW -->
+
+<div class="chat-window">
+    <div class="header">
+        <img src="https://i.pravatar.cc/101">
+        John Doe
+    </div>
+
+    <div class="messages">
+        <div class="message-rec">Hello there 👋</div>
+        <div class="message-send">Hi! How’s it going?</div>
+        <div class="message-rec">All good here.</div>
+        <div class="message-send">Nice!</div>
+        <div class="message-rec">Where is sam?</div>
+        <div class="message-send">I don't know..maybe at the genz part.</div>
+        <div class="message-rec">ohh he didn't inform me.</div>
+        <div class="message-send">ohh maybe he was in a hurry</div>
+        <div class="message-rec">possibly.</div>
+        <div class="message-send">i am not sure</div>
+        <div class="message-rec">All good here.</div>
+        <div class="message-send">Nice!</div>
+
+    </div>
+
+    <div class="input-area">
+        <input type="text" placeholder="Type a message">
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
